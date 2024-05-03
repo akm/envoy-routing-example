@@ -21,7 +21,7 @@ static_resources:
                       domains: ["*"]
                       routes:
                         - name: get
-                          match: { prefix: "/get" }
+                          match: { prefix: "/api" }
                           route:
                             cluster: cluster2
                             timeout: 30s
