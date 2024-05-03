@@ -23,24 +23,24 @@ static_resources:
                         - name: get
                           match: { prefix: "/get" }
                           route:
-                            cluster: httpbin
+                            cluster: cluster2
                             timeout: 30s
                         - name: default
                           match: { prefix: "/" }
                           route:
-                            cluster: default_root
+                            cluster: cluster1
                             timeout: 30s
                 http_filters:
                   - name: envoy.filters.http.router
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
   clusters:
-    - name: httpbin
+    - name: cluster2
       connect_timeout: 1s
       type: STRICT_DNS
       lb_policy: ROUND_ROBIN
       load_assignment:
-        cluster_name: httpbin
+        cluster_name: cluster2
         endpoints:
           - lb_endpoints:
               - endpoint:
@@ -48,12 +48,12 @@ static_resources:
                     socket_address:
                       address: server2
                       port_value: 8002
-    - name: default_root
+    - name: cluster1
       connect_timeout: 1s
       type: STRICT_DNS
       lb_policy: ROUND_ROBIN
       load_assignment:
-        cluster_name: default_root
+        cluster_name: cluster1
         endpoints:
           - lb_endpoints:
               - endpoint:
