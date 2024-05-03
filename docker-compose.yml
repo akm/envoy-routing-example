@@ -2,6 +2,7 @@ version: "3.7"
 name: "envoy-routing-example"
 services:
   server1:
+    hostname: server1
     build:
      context: .
      dockerfile: Dockerfile
@@ -12,6 +13,7 @@ services:
       - network1
 
   server2:
+    hostname: server2
     build:
      context: .
      dockerfile: Dockerfile
